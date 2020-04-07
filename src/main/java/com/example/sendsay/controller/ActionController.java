@@ -1,14 +1,13 @@
 package com.example.sendsay.controller;
 
+import com.example.sendsay.model.Message;
+import com.example.sendsay.model.action.IssueSendAction;
 import com.example.sendsay.model.action.PingAction;
 import com.example.sendsay.model.action.PongAction;
 import com.example.sendsay.model.action.TrackGetAction;
 import com.example.sendsay.service.ActionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * API вызова команд
@@ -48,6 +47,35 @@ public class ActionController {
         TrackGetAction action = new TrackGetAction();
         action.setId(id);
         return this.service.sendToSendsay(action);
+    }
+
+    /**
+     * Рассылка сообщения
+     */
+    @PostMapping("/issueSend")
+    public Object mailSend(
+            @RequestParam String group,
+            @RequestBody Message message
+    ) {
+        IssueSendAction action = new IssueSendAction();
+        action.setGroup(group);
+        action.getLetter().setMessage(message);
+        return this.service.sendToSendsay(action);
+    }
+
+
+    /**
+     * Тестовое
+     */
+    @PostMapping("/test")
+    public Object test(
+            @RequestParam String group,
+            @RequestBody Message message
+    ) {
+        IssueSendAction action = new IssueSendAction();
+        action.setGroup(group);
+        action.getLetter().setMessage(message);
+        return action;
     }
 
 }

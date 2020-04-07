@@ -30,7 +30,7 @@ public class SendsayController {
     }
 
     /**
-     * Получить новую сессию
+     * Создать новую сессию или обновить
      */
     @GetMapping("/login")
     public AuthResponse login() {
