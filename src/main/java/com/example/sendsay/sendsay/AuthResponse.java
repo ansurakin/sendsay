@@ -1,4 +1,4 @@
-package com.example.sendsay.auth;
+package com.example.sendsay.sendsay;
 
 import lombok.Data;
 
